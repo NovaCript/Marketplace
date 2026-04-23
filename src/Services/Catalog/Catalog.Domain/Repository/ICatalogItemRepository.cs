@@ -10,5 +10,5 @@ public interface ICatalogItemRepository
     Task<IEnumerable<CatalogItem>> GetCatalogItemsByTitleAsync(string title);
     Task<IEnumerable<CatalogItem>> GetCatalogItemsByBrandAsync(
         string brandTitle);
-    Task<bool> DeleteCatalogItenAsync(Guid id);
+    Task<bool> DeleteCatalogItemAsync(Guid id);
 }
