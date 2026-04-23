@@ -1,0 +1,14 @@
+﻿using Catalog.Domain.Entities;
+
+namespace Catalog.Domain.Repository;
+
+public interface ICatalogItemRepository
+{
+    Task<CatalogItem> CreateCatalogItemAsync(CatalogItem item);
+    Task<IEnumerable<CatalogItem>> GetAllCatalogItemsAsync();
+    Task<CatalogItem?> GetCatalogItemAsync(Guid id);
+    Task<IEnumerable<CatalogItem>> GetCatalogItemsByTitleAsync(string title);
+    Task<IEnumerable<CatalogItem>> GetCatalogItemsByBrandAsync(
+        string brandTitle);
+    Task<bool> DeleteCatalogItenAsync(Guid id);
+}
