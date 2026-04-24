@@ -4,5 +4,5 @@ namespace Catalog.Domain.Repository;
 
 public interface IBrandRepository
 {
-    Task<IEnumerable<Brand>> GetAllBrandsAsync();
+    Task<IEnumerable<Brand>> GetAllBrandsAsync(CancellationToken cancellationToken);
 }
