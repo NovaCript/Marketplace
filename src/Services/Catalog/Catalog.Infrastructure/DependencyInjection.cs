@@ -1,4 +1,6 @@
-﻿using Catalog.Infrastructure.Data.Seed;
+﻿using Catalog.Domain.Repository;
+using Catalog.Infrastructure.Data.Seed;
+using Catalog.Infrastructure.Repositories;
 using Marten;
 
 namespace Catalog.Infrastructure;
@@ -15,12 +17,20 @@ public static class DependencyInjection
 
         serviceCollection.AddMarten(opt =>
         {
-            opt.Connection(connectionString);
+            opt.Connection(connectionString!);
         })
             .UseLightweightSessions()
             .InitializeWith<InitializeDatabaseAsync>();
+
+
+        serviceCollection.AddScoped<CatalogRepository>();
         
-        
+        serviceCollection.AddScoped<IBrandRepository>(sp =>
+            sp.GetRequiredService<CatalogRepository>());
+        serviceCollection.AddScoped<ICategoryRepository>(sp =>
+            sp.GetRequiredService<CatalogRepository>());
+        serviceCollection.AddScoped<ICatalogItemRepository>(sp =>
+            sp.GetRequiredService<CatalogRepository>());
         
         return serviceCollection;
     }
