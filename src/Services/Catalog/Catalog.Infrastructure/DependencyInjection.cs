@@ -32,6 +32,8 @@ public static class DependencyInjection
         serviceCollection.AddScoped<ICatalogItemRepository>(sp =>
             sp.GetRequiredService<CatalogRepository>());
         
+        serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
+        
         return serviceCollection;
     }
 }
