@@ -13,8 +13,10 @@ public static class DependencyInjection
 
 
         var assembly = typeof(Application.DependencyInjection).Assembly;
+        var licenseKet = configuration.GetSection("MediatR:LicenseKey").Value;
         serviceCollection.AddMediatR(config =>
         {
+            config.LicenseKey = licenseKet;
             config.RegisterServicesFromAssembly(assembly);
         });
         
