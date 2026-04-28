@@ -1,8 +1,4 @@
-﻿using Catalog.Domain.Entities;
-using Catalog.Domain.Repository;
-using Marten;
-
-namespace Catalog.Infrastructure.Repositories;
+﻿namespace Catalog.Infrastructure.Repositories;
 
 public class CatalogRepository(IDocumentSession documentSession)
     : IBrandRepository,
