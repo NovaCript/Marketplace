@@ -1,9 +1,4 @@
-﻿using Catalog.Domain.Repository;
-using Catalog.Infrastructure.Data.Seed;
-using Catalog.Infrastructure.Repositories;
-using Marten;
-
-namespace Catalog.Infrastructure;
+﻿namespace Catalog.Infrastructure;
 
 public static class DependencyInjection
 {

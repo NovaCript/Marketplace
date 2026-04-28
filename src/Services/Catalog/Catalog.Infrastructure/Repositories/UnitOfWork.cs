@@ -1,7 +1,4 @@
-﻿using Catalog.Domain.Repository;
-using Marten;
-
-namespace Catalog.Infrastructure.Repositories;
+﻿namespace Catalog.Infrastructure.Repositories;
 
 public class UnitOfWork(IDocumentSession documentSession) : IUnitOfWork
 {

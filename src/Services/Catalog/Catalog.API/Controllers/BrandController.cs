@@ -1,9 +1,4 @@
-﻿using System.Net;
-using Catalog.Application.Queries.BrandQueries;
-using Catalog.Application.Responses.BrandResponses;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Catalog.API.Controllers;
+﻿namespace Catalog.API.Controllers;
 
 public class BrandController : BaseController
 {

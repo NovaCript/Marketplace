@@ -1,8 +1,4 @@
-﻿using Asp.Versioning;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Catalog.API.Controllers;
+﻿namespace Catalog.API.Controllers;
 
 [ApiVersion("1")]
 [ApiController]

@@ -1,8 +1,4 @@
-﻿using Catalog.Domain.Entities;
-using Marten;
-using Marten.Schema;
-
-namespace Catalog.Infrastructure.Data.Seed;
+﻿namespace Catalog.Infrastructure.Data.Seed;
 
 public class InitializeDatabaseAsync : IInitialData
 {
