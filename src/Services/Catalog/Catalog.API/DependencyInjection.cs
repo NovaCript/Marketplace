@@ -7,8 +7,16 @@ public static class DependencyInjection
         IConfiguration configuration
         )
     {
+        serviceCollection.AddControllers();
         serviceCollection.AddEndpointsApiExplorer();
         serviceCollection.AddSwaggerGen();
+
+
+        var assembly = typeof(Application.DependencyInjection).Assembly;
+        serviceCollection.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssembly(assembly);
+        });
         
         return serviceCollection;
     }
@@ -17,6 +25,7 @@ public static class DependencyInjection
         this WebApplication application
         )
     {
+        application.MapControllers();
 
         application.UseSwagger();
         application.UseSwaggerUI();
