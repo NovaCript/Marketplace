@@ -10,6 +10,6 @@ public class BrandController : BaseController
     public async Task<ActionResult<GetBrandsResult>> GetBrands(CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(new GetBrandsQuery(), cancellationToken: cancellationToken);
-        return result;
+        return Ok(result);
     }
 }
