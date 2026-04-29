@@ -8,6 +8,9 @@ global using Catalog.Application.Responses.BrandResponses;
 global using Asp.Versioning;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
+global using Catalog.Application.Queries.CategoryQueries;
+global using Catalog.Application.Responses.CategoryResponses;
+
 
 
 
