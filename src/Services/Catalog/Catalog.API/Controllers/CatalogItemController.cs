@@ -12,4 +12,15 @@ public class CatalogItemController : BaseController
             cancellationToken: cancellationToken);
         return Ok(result);
     }
+
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(GetCatalogItemByIdResult),
+        (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetCatalogItemByIdResult>> GetCatalogItem(Guid id,
+        CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(new GetCatalogItemByIdQuery(id),
+            cancellationToken: cancellationToken);
+        return Ok(result);
+    }
 }
