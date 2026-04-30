@@ -10,6 +10,9 @@ global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
 global using Catalog.Application.Queries.CategoryQueries;
 global using Catalog.Application.Responses.CategoryResponses;
+global using Catalog.Application.Queries.CatalogItemsQueries;
+global using Catalog.Application.Responses.CatalogItemResponses;
+
 
 
 
