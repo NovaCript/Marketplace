@@ -36,4 +36,17 @@ public class CatalogItemController : BaseController
             cancellationToken: cancellationToken);
         return Ok(result);
     }
+
+    [HttpGet("brand/{brandTitle}")]
+    [ProducesResponseType(typeof(GetCatalogItemsByBrandTitleResult),
+        (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetCatalogItemsByBrandTitleResult>>
+        GetByBrandTitle(
+        string brandTitle, CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(
+                new GetCatalogItemsByBrandTitleQuery(brandTitle),
+                cancellationToken: cancellationToken);
+        return Ok(result);
+    }
 }
