@@ -1,6 +1,7 @@
 ﻿namespace Catalog.Application.Handlers.CatalogItemHandler;
 
-public class GetCatalogItemByIdQueryHandler(ICatalogItemRepository catalogItemRepository) 
+public class GetCatalogItemByIdQueryHandler(
+    ICatalogItemRepository catalogItemRepository) 
     : IRequestHandler<GetCatalogItemByIdQuery
         , GetCatalogItemByIdResult>
 {
@@ -9,7 +10,7 @@ public class GetCatalogItemByIdQueryHandler(ICatalogItemRepository catalogItemRe
         CancellationToken cancellationToken)
     {
         CatalogItem catalogItem =
-            await catalogItemRepository.GetCatalogItemAsync(query.id,
+            await catalogItemRepository.GetCatalogItemAsync(query.Id,
                 cancellationToken: cancellationToken);
         var result = new GetCatalogItemByIdResult(catalogItem);
         return result;

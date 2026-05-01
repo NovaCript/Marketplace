@@ -1,4 +1,4 @@
 ﻿namespace Catalog.Application.Queries.CatalogItemsQueries;
 
-public record GetCatalogItemByIdQuery(Guid id) 
+public record GetCatalogItemByIdQuery(Guid Id) 
     : IRequest<GetCatalogItemByIdResult>;
