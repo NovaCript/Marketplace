@@ -1,4 +1,7 @@
-﻿namespace Catalog.API.Controllers;
+﻿using Catalog.Application.Commands.CatalogItemCommands;
+using Catalog.Application.Dto.CatalogItemDto;
+
+namespace Catalog.API.Controllers;
 
 public class CatalogItemController : BaseController
 {
@@ -16,7 +19,7 @@ public class CatalogItemController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetCatalogItemByIdResult),
         (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetCatalogItemByIdResult>> GetCatalogItem(
+    public async Task<ActionResult<GetCatalogItemByIdResult>> GetCatalogItemById(
         Guid id,
         CancellationToken cancellationToken)
     {
@@ -48,5 +51,22 @@ public class CatalogItemController : BaseController
                 new GetCatalogItemsByBrandTitleQuery(brandTitle),
                 cancellationToken: cancellationToken);
         return Ok(result);
+    }
+
+    [HttpPost]
+    [ProducesResponseType(typeof(CreateCatalogItemResult),
+        (int)HttpStatusCode.Created)]
+    public async Task<ActionResult<CreateCatalogItemResult>> CreateCatalogItem(
+        [FromBody] CreateCatalogItemDto catalogItemDto,
+        CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(
+            new CreateCatalogItemCommand(catalogItemDto),
+            cancellationToken: cancellationToken);
+        return CreatedAtAction(
+            nameof(GetCatalogItemById),
+            new { id = result.Id },
+            result
+            );
     }
 }
