@@ -69,4 +69,17 @@ public class CatalogItemController : BaseController
             result
             );
     }
+
+    [HttpPut]
+    [ProducesResponseType(typeof(UpdateCatalogItemResult), 
+        (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateCatalogItemResult>> UpdateCatalogItem(
+        [FromBody] UpdateCatalogItemCommand command,
+        CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(
+            command,
+            cancellationToken: cancellationToken);
+        return Ok(result);
+    }
 }
