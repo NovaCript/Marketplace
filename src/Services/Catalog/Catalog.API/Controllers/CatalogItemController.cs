@@ -16,14 +16,14 @@ public class CatalogItemController : BaseController
         return Ok(result);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{catalogItemId:guid}")]
     [ProducesResponseType(typeof(GetCatalogItemByIdResult),
         (int)HttpStatusCode.OK)]
     public async Task<ActionResult<GetCatalogItemByIdResult>> GetCatalogItemById(
-        Guid id,
+        Guid catalogItemId,
         CancellationToken cancellationToken)
     {
-        var result = await Mediator.Send(new GetCatalogItemByIdQuery(id),
+        var result = await Mediator.Send(new GetCatalogItemByIdQuery(catalogItemId),
             cancellationToken: cancellationToken);
         return Ok(result);
     }
@@ -74,11 +74,24 @@ public class CatalogItemController : BaseController
     [ProducesResponseType(typeof(UpdateCatalogItemResult), 
         (int)HttpStatusCode.OK)]
     public async Task<ActionResult<UpdateCatalogItemResult>> UpdateCatalogItem(
-        [FromBody] UpdateCatalogItemCommand command,
+        [FromBody] UpdateCatalogItemDto catalogItemDto,
         CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(
-            command,
+            new UpdateCatalogItemCommand(catalogItemDto),
+            cancellationToken: cancellationToken);
+        return Ok(result);
+    }
+
+    [HttpDelete("{catalogItemId:guid}")]
+    [ProducesResponseType(typeof(DeleteCatalogItemByIdResult),
+        (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<DeleteCatalogItemByIdResult>> DeleteCatalogItem(
+        Guid catalogItemId,
+        CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(
+            new DeleteCatalogItemByIdCommand(catalogItemId),
             cancellationToken: cancellationToken);
         return Ok(result);
     }
