@@ -1,4 +1,7 @@
-﻿namespace Catalog.Infrastructure.Repositories;
+﻿using Catalog.Domain.Specification;
+using Marten.Linq;
+
+namespace Catalog.Infrastructure.Repositories;
 
 public class CatalogRepository(IDocumentSession documentSession)
     : IBrandRepository,
@@ -65,5 +68,63 @@ public class CatalogRepository(IDocumentSession documentSession)
         documentSession.Store(item);
         await documentSession.SaveChangesAsync(token: cancellationToken);
         return true;
+    }
+
+    public async Task<Pagination<CatalogItem>> GetCatalogItemsAsync(QueryArgs queryArgs, CancellationToken cancellationToken)
+    {
+        
+        var allItems = documentSession.Query<CatalogItem>().AsQueryable();
+        var brandId = queryArgs.BrandId;
+        var categoryId = queryArgs.CategoryId;
+        var search = queryArgs.Search;
+        var sortString = queryArgs.Sort;
+        
+        if (brandId is not null)
+        {
+            allItems = allItems.Where(ci =>
+                ci.Brand != null
+                && ci.Brand.Id == brandId);
+        }
+
+        if (categoryId is not null)
+        {
+            allItems = allItems.Where(ci => 
+                ci.Category != null
+                && ci.Category.Id == categoryId);
+        }
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            allItems = allItems.Where(ci =>
+                ci.Title != null
+                && ci.Title.Contains(search,
+                    StringComparison.OrdinalIgnoreCase));
+        }
+
+        if (!string.IsNullOrEmpty(sortString))
+        {
+            allItems = sortString.ToLower() switch
+            {
+                "price_desc" => allItems.OrderByDescending(ci => ci.Price),
+                "price_asc" => allItems.OrderBy(ci => ci.Price),
+                "title_desc" => allItems.OrderByDescending(ci => ci.Title),
+                "title_asc" => allItems.OrderBy(ci => ci.Title),
+                _ => allItems
+            };
+        }
+
+        var count = await allItems.CountAsync(token: cancellationToken);
+
+        var items = await allItems
+            .Skip((queryArgs.PageIndex - 1) * queryArgs.PageSize)
+            .Take(queryArgs.PageSize)
+            .ToListAsync(token: cancellationToken);
+
+        return new Pagination<CatalogItem>(
+            PageIndex: queryArgs.PageIndex,
+            PageSize: queryArgs.PageSize,
+            TotalCount: count,
+            Items: items
+        );
     }
 }

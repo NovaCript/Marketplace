@@ -1,4 +1,6 @@
-﻿namespace Catalog.Domain.Repository;
+﻿using Catalog.Domain.Specification;
+
+namespace Catalog.Domain.Repository;
 
 public interface ICatalogItemRepository
 {
@@ -10,4 +12,5 @@ public interface ICatalogItemRepository
     Task<bool> DeleteCatalogItemAsync(Guid id, CancellationToken cancellationToken);
     Task<bool> UpdateCatalogItemAsinc(CatalogItem item,
         CancellationToken cancellationToken);
+    Task<Pagination<CatalogItem>> GetCatalogItemsAsync(QueryArgs args, CancellationToken cancellationToken);
 }
