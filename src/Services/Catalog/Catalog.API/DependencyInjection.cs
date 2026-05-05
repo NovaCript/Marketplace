@@ -31,6 +31,12 @@ public static class DependencyInjection
                 Title = "Catalog API",
                 Version = "v1"
             });
+            config.SwaggerDoc("v2", new OpenApiInfo
+            {
+                Title = "Catalog API",
+                Version = "v2"
+            });
+            config.EnableAnnotations();
         });
 
 
@@ -52,9 +58,11 @@ public static class DependencyInjection
         application.MapControllers();
 
         application.UseSwagger();
-        application.UseSwaggerUI();
-        
-        application.MapGet("/", () => "Hello World!");
+        application.UseSwaggerUI(opt =>
+        {
+            opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog API v1");
+            opt.SwaggerEndpoint("/swagger/v2/swagger.json", "Catalog API v2");
+        });
         
         return application; 
     }
