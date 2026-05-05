@@ -1,5 +1,6 @@
-﻿namespace Catalog.Application.Queries.CatalogItemsQueries;
+﻿using Catalog.Domain.Specification;
 
-public record GetCatalogItemsQueryV2(
-    int PageIndex, int PageSize) 
+namespace Catalog.Application.Queries.CatalogItemsQueries;
+
+public record GetCatalogItemsQueryV2(QueryArgs Args) 
     : IRequest<GetCatalogItemsResultV2>;
