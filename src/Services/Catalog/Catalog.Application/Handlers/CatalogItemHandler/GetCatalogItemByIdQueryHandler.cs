@@ -9,7 +9,7 @@ public class GetCatalogItemByIdQueryHandler(
         GetCatalogItemByIdQuery query,
         CancellationToken cancellationToken)
     {
-        CatalogItem catalogItem =
+        var catalogItem =
             await catalogItemRepository.GetCatalogItemAsync(query.Id,
                 cancellationToken: cancellationToken);
         var result = new GetCatalogItemByIdResult(catalogItem);
